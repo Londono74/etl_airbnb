@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+
+# Datos fuente (se descargan con scripts/cargar_mongodb.py) y salidas generadas
+data/
+output/
+
+# Logs generados en cada ejecución
+logs/*.txt
