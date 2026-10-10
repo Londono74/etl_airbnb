@@ -10,3 +10,6 @@ output/
 
 # Logs generados en cada ejecución
 logs/*.txt
+
+# Requerimiento del taller (documentación local)
+/docs/
