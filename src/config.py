@@ -1,9 +1,3 @@
-"""Configuración central del proyecto ETL Airbnb Bogotá.
-
-Los valores de conexión se pueden sobrescribir con un archivo ``.env``
-en la raíz del proyecto (ver ``.env.example``).
-"""
-
 import os
 from pathlib import Path
 
@@ -28,3 +22,14 @@ DATA_DIR = BASE_DIR / "data"
 LOG_DIR = BASE_DIR / "logs"
 OUTPUT_DIR = BASE_DIR / "output"
 SQLITE_PATH = OUTPUT_DIR / "airbnb_bogota.db"
+XLSX_PATH = OUTPUT_DIR / "airbnb_bogota.xlsx"
+
+# Tablas que produce la fase de transformación y que se cargan en SQLite / XLSX
+TABLAS_SALIDA = [
+    "listings",
+    "hosts",
+    "amenities",
+    "reviews",
+    "calendar",
+    "calendar_mensual",
+]
