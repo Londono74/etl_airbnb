@@ -66,6 +66,37 @@ python main.py
 
 Cada ejecución genera un archivo en `logs/` con el formato `log_YYYYMMDD_HHMM.txt`.
 
+Al finalizar, el proceso deja en `output/`:
+
+- `airbnb_bogota.db` — base SQLite con las tablas `listings`, `hosts`, `amenities`, `reviews`, `calendar` y `calendar_mensual`.
+- `airbnb_bogota.xlsx` — el mismo contenido exportado, una hoja por tabla.
+
+## Integrantes y responsabilidades
+
+| Integrante | Responsabilidad |
+|---|---|
+| Luis David Lopera | Coordinación, descripción de datasets, extracción (`extraccion.py`), consolidación del informe. |
+| Felipe | Análisis exploratorio de datos y gráficas (`notebooks/exploracion_airbnb.ipynb`, secciones 3 y 4 del informe). |
+| Miguel Londoño | Transformación (`transformacion.py`), reglas de limpieza y derivación de variables. |
+| Simón | Carga a SQLite y exportación XLSX (`carga.py`), generación del log de ejecución. |
+
 ## Ejemplo de ejecución
 
-_Se completa con la salida real de `python main.py` y un extracto del log._
+Salida real de una ejecución completa de `python main.py`:
+
+```
+2026-10-10 18:41:32 | INFO    | etl_airbnb.pipeline      | === Inicio del proceso ETL Airbnb Bogotá ===
+2026-10-10 18:41:32 | INFO    | etl_airbnb.extraccion    | Conexión establecida con MongoDB (mongodb://localhost:27017), base 'airbnb_bogota_etl'
+2026-10-10 18:41:34 | INFO    | etl_airbnb.extraccion    | Extracción de 'Listings': 19.187 registros, 90 columnas
+2026-10-10 18:41:36 | INFO    | etl_airbnb.extraccion    | Extracción de 'Reviews': 527.731 registros, 6 columnas
+2026-10-10 18:41:49 | INFO    | etl_airbnb.extraccion    | Extracción de 'Calendar': 7.003.255 registros, 5 columnas
+2026-10-10 18:41:49 | INFO    | etl_airbnb.transformacion| Listings: 13 columnas 100% vacías descartadas
+2026-10-10 18:41:49 | WARNING | etl_airbnb.transformacion| Listings: 190 precios marcados como atípicos (> p99); se conservan
+2026-10-10 18:41:49 | INFO    | etl_airbnb.transformacion| Listings: 0 registros con minimum_nights > 365 (regla sin efecto)
+2026-10-10 18:41:51 | INFO    | etl_airbnb.carga         | Tabla 'listings' cargada: 19.187 registros (verificado)
+2026-10-10 18:42:28 | INFO    | etl_airbnb.carga         | Exportación a 'airbnb_bogota.xlsx' finalizada
+2026-10-10 18:42:28 | INFO    | etl_airbnb.pipeline      | === Proceso ETL finalizado con éxito ===
+```
+
+> Los conteos de `Reviews` y `Calendar` del ejemplo corresponden a una ejecución
+> sobre el dataset completo. Los tiempos dependen del equipo.
